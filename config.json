@@ -1,8 +1,7 @@
 {
     "config": {
         "email_to": [
-            "firya@bk.ru",
-            "catkitstudio@yandex.ru"
+            "info@fdrp.dev"
         ],
         "email_from": "info@fdrp.dev"
     },

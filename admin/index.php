@@ -11,8 +11,6 @@
 	$JSON = new JSON();
 	$Core = new Core();
 
-	//$Core->mail("tema", "message");
-
 	$Core->check_system();
 
 	require_once($_SERVER['DOCUMENT_ROOT']."/admin/forms.php");

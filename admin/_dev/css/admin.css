@@ -618,6 +618,7 @@ body {
 	height: 100%;
 }
 .a-redactor {
+	box-sizing: border-box;
 	position: relative;
 	margin-bottom: 20px;
 	height: 100%;

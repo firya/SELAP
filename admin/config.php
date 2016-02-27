@@ -1,7 +1,4 @@
 <?php
-	define("MAILTO", serialize(array(
-		"catkitstudio@yandex.ru"
-	))); // Массив e-mail на которые отправляются письма через файл mail.php
 	define("LOGIN", "admin"); // Логин доступа в админ панель
 	define("PASSWORD", "password1"); // Пароль доступа в админ панель
 	define("CONFIG_PATH", "/config.json"); // Путь к файлу, где будет храниться конфиг
@@ -10,7 +7,7 @@
 	define("HTML_PATH", "/templates"); // Путь к html файлам
 	define("CSS_PATH", "/css"); // путь к css файлам
 	define("JS_PATH", "/js"); // путь к js файлам
-	define("TEMPLATE_PATH", "/templates"); // Путь к шаблону
+	define("TEMPLATE_PATH", "/templates"); // Путь к шаблонам
 
 	define("TEMPLATES_PATH", "/admin/templates");
 	define("FIELD_TYPES", serialize(array(
@@ -64,7 +61,7 @@
 		"config" => array(
 			"email_to" => array(
 				"name" => "E-mail куда будут отправляться письма",
-				"desc" => "Вы можете указать множество e-mail адресов, письма будут отправлены на все",
+				"desc" => "Вы можете использовать функцию \$Core->mail() для отправки писем на указанные e-mail адреса",
 				"type" => "array", 
 				"children_type" => "text"
 			), 

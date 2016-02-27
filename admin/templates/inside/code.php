@@ -47,6 +47,7 @@
 			lineNumbers: true, 
 			theme: "seti", 
 			matchBrackets: true,
+			lineWrapping: true,
 			mode: "application/x-httpd-php",
 			indentUnit: 4,
 			indentWithTabs: true
