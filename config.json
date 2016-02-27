@@ -1,0 +1,23 @@
+{
+    "config": {
+        "email_to": [
+            "firya@bk.ru",
+            "catkitstudio@yandex.ru"
+        ],
+        "email_from": "info@fdrp.dev"
+    },
+    "defaults": [],
+    "structure": {
+        "pages": [
+            {
+                "url": "",
+                "name": "Главная",
+                "template": "\/templates\/index.php",
+                "title": "",
+                "keywords": "",
+                "description": "",
+                "parent": ""
+            }
+        ]
+    }
+}

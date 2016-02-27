@@ -1,0 +1,63 @@
+{
+    "config": {
+        "email_to": {
+            "name": "E-mail куда будут отправляться письма",
+            "desc": "Вы можете указать множество e-mail адресов, письма будут отправлены на все",
+            "type": "array",
+            "children_type": "text"
+        },
+        "email_from": {
+            "name": "E-mail с которого будет отправляться почта",
+            "desc": "",
+            "type": "text"
+        }
+    },
+    "defaults": [],
+    "structure": {
+        "pages": {
+            "name": "Страницы",
+            "desc": "",
+            "type": "array",
+            "tab_header": "name",
+            "children": {
+                "url": {
+                    "name": "Ссылка",
+                    "desc": "",
+                    "type": "text"
+                },
+                "name": {
+                    "name": "Название страницы",
+                    "desc": "",
+                    "type": "text"
+                },
+                "template": {
+                    "name": "Шаблон страницы",
+                    "desc": "",
+                    "type": "select",
+                    "options": "%templates%"
+                },
+                "title": {
+                    "name": "Заголовок",
+                    "desc": "",
+                    "type": "text"
+                },
+                "keywords": {
+                    "name": "Ключевые слова",
+                    "desc": "",
+                    "type": "text"
+                },
+                "description": {
+                    "name": "Описание",
+                    "desc": "",
+                    "type": "textarea"
+                },
+                "parent": {
+                    "name": "Родительская категория",
+                    "desc": "",
+                    "type": "select",
+                    "options": "%pages%"
+                }
+            }
+        }
+    }
+}
