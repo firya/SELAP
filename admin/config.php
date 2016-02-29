@@ -5,7 +5,7 @@
 	define("BASE_URL", "/selap"); // Путь до директории в которую установлена админ-панель
 	define("CONFIG_PATH", "/config.json"); // Путь к файлу, где будет храниться конфиг
 	define("CONFIG_TREE_PATH", "/admin/config_tree.json"); // Путь к файлу, где будет храниться вспомогательный конфиг
-	define("FILEMANAGER_PATH", "files"); // Папка в которую будут загружаться файлы
+	define("FILEMANAGER_PATH", "/files"); // Папка в которую будут загружаться файлы
 	define("HTML_PATH", "/templates"); // Путь к html файлам
 	define("CSS_PATH", "/css"); // путь к css файлам
 	define("JS_PATH", "/js"); // путь к js файлам

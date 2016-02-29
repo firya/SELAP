@@ -154,7 +154,7 @@
 			$ext = pathinfo($file['name'], PATHINFO_EXTENSION);
 
 			if ($folder != '') {
-				$storeFolder .= DIRECTORY_SEPARATOR.$folder;
+				$storeFolder .= $folder;
 			}
 			
 		    $tempFile = $file['tmp_name'];
@@ -397,7 +397,7 @@
 							$html .= "</div>";
 						}
 						if ($json_value['children_type'] == "file") {
-							$html .= "<a href='#' class='a-file i-filemanager' data-target_id='".implode("|", $id_array_new_2)."' data-mfp-src='/admin/filemanager/dialog.php?type=2&field_id=".$id."'>";
+							$html .= "<a href='#' class='a-file i-filemanager' data-target_id='".implode("|", $id_array_new_2)."' data-mfp-src='".BASE_URL."/admin/filemanager/dialog.php?type=2&field_id=".$id."'>";
 							$html .= "<span class='a-file__block'>";
 							$html .= "<span class='a-file__center'><span class='a-file__add'>+</span></span>";
 							$html .= "</span>";
@@ -501,7 +501,7 @@
 			$html .= "</span>";
 			$html .= "<div class='a-file__overlay'>";
 			$html .= "<div class='a-file__center'>";
-			$html .= "<div class='a-file__change i-filemanager' data-mfp-src='/admin/filemanager/dialog.php?type=2&field_id=".$id."'><i class='icon-upload'></i></div>";
+			$html .= "<div class='a-file__change i-filemanager' data-mfp-src='".BASE_URL."/admin/filemanager/dialog.php?type=2&field_id=".$id."'><i class='icon-upload'></i></div>";
 			if ($single) {
 				$html .= "<div class='a-file__remove i-paramtree__clear ".$file_remove_class."'><i class='icon-remove'></i></div>";
 			} else {
@@ -523,6 +523,10 @@
 
 			$config_default = unserialize(CONFIG_DEFAULT);
 			$config_tree_default = unserialize(CONFIG_TREE_DEFAULT);
+
+			if (!file_exists($_SERVER['DOCUMENT_ROOT'].BASE_URL.FILEMANAGER_PATH)) {
+				mkdir($_SERVER['DOCUMENT_ROOT'].BASE_URL.FILEMANAGER_PATH, 0777);
+			}
 
 			$config = array_replace_recursive($config_default, $config);
 			$config_tree = array_replace_recursive($config_tree_default, $config_tree);

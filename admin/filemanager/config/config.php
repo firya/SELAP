@@ -3,6 +3,8 @@ session_start();
 mb_internal_encoding('UTF-8');
 date_default_timezone_set('Europe/Moscow');
 
+require_once("../config.php");
+
 /*
 |--------------------------------------------------------------------------
 | Optional security
@@ -66,7 +68,7 @@ $config = array(
 	| with start and final /
 	|
 	*/
-	'upload_dir' => '/files/',
+	'upload_dir' => BASE_URL.FILEMANAGER_PATH.'/',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -76,7 +78,7 @@ $config = array(
 	| with final /
 	|
 	*/
-	'current_path' => '../../files/',
+	'current_path' => '../..'.FILEMANAGER_PATH.'/',
 
 	/*
 	|--------------------------------------------------------------------------
