@@ -2,6 +2,12 @@
 	$url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 	$dir = explode("/", substr(parse_url($url, PHP_URL_PATH), 1));
 
+
+	$base_url = array_filter(explode("/", BASE_URL));
+
+	$dir = array_diff($dir, $base_url);
+	$dir = array_values($dir);
+
 	if (!isset($_SESSION['login'])) {
 		switch ($dir[1]) {
 			case 'forgot':

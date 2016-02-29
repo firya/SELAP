@@ -518,29 +518,25 @@ $(function() {
 			url: "/admin/get_file.php",
 			data: { file: value }
 		}).done(function(result) {
-			if (result) {
-				CodeMirrorEditor.doc.setValue(result);
-				switch (extension) {
-					case "css":
-						mode = "text/css";
-						break;
-					case "js":
-						mode = "text/javascript";
-						break;
-					case "html":
-						mode = "application/x-httpd-php";
-						break;
-					case "php":
-						mode = "application/x-httpd-php";
-						break;
-					default:
-						mode = "application/x-httpd-php";
-						break;
-				}
-				CodeMirrorEditor.setOption("mode", mode);
-			} else {
-				console.log("I think file doesn't exists.");
+			CodeMirrorEditor.doc.setValue(result);
+			switch (extension) {
+				case "css":
+					mode = "text/css";
+					break;
+				case "js":
+					mode = "text/javascript";
+					break;
+				case "html":
+					mode = "application/x-httpd-php";
+					break;
+				case "php":
+					mode = "application/x-httpd-php";
+					break;
+				default:
+					mode = "application/x-httpd-php";
+					break;
 			}
+			CodeMirrorEditor.setOption("mode", mode);
 		});
 	});
 

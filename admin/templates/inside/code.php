@@ -12,7 +12,7 @@
 		<div class="a-content a-content-code">			
 			<div class="a-redactor a-redactor-options">
 				<?
-					require_once($_SERVER['DOCUMENT_ROOT']."/admin/get_file.php");
+					require_once($_SERVER['DOCUMENT_ROOT'].BASE_URL."/admin/get_file.php");
 					$all_files = $Core->get_all_files();
 				?>
 				<div class="a-redactor__options">

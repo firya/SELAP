@@ -1,13 +1,13 @@
 <?php
-	require_once($_SERVER['DOCUMENT_ROOT']."/admin/config.php");
-	require_once($_SERVER['DOCUMENT_ROOT']."/admin/json.php");
-	require_once($_SERVER['DOCUMENT_ROOT']."/admin/core.php");
-	require_once($_SERVER['DOCUMENT_ROOT'].'/admin/class.phpmailer.php');
-
+	require_once("admin/config.php");
+	require_once($_SERVER['DOCUMENT_ROOT'].BASE_URL."/admin/json.php");
+	require_once($_SERVER['DOCUMENT_ROOT'].BASE_URL."/admin/core.php");
+	require_once($_SERVER['DOCUMENT_ROOT'].BASE_URL.'/admin/class.phpmailer.php');
+	
 	$JSON = new JSON();
 	$Core = new Core();
 
-	$config = $JSON->get_json($_SERVER['DOCUMENT_ROOT'].CONFIG_PATH);
+	$config = $JSON->get_json($_SERVER['DOCUMENT_ROOT'].BASE_URL.CONFIG_PATH);
 
-	require_once($_SERVER['DOCUMENT_ROOT']."/admin/url.php");
+	require_once($_SERVER['DOCUMENT_ROOT'].BASE_URL."/admin/url.php");
 ?>

@@ -11,9 +11,13 @@
 	    return urldecode($url);
 	}
 
-	$routes = array_map("url_decode", $routes);
+	$base_url = array_filter(explode("/", BASE_URL));
 
-	$structure = $JSON->get_json($_SERVER['DOCUMENT_ROOT'].CONFIG_PATH)['structure']['pages'];
+	$routes = array_diff($routes, $base_url);
+	$routes = array_map("url_decode", $routes);
+	$routes = array_values($routes);
+
+	$structure = $JSON->get_json($_SERVER['DOCUMENT_ROOT'].BASE_URL.CONFIG_PATH)['structure']['pages'];
 
 	$SELAP = array();
 	$SELAP['page'] = $Core->get_page($structure, $routes);
@@ -21,11 +25,11 @@
 
 	$page_template = "";
 	if (!empty($SELAP['page'])) {
-		$page_template = $_SERVER['DOCUMENT_ROOT'].$SELAP['page']['template'];
+		$page_template = $_SERVER['DOCUMENT_ROOT'].BASE_URL.$SELAP['page']['template'];
 	}
 	if (!file_exists($page_template)) {
 		header("HTTP/1.0 404 Not Found");
-		$page_template = $_SERVER['DOCUMENT_ROOT'].TEMPLATE_PATH."/p404.php";
+		$page_template = $_SERVER['DOCUMENT_ROOT'].BASE_URL.TEMPLATE_PATH."/p404.php";
 	}
 	require_once($page_template);
 ?>

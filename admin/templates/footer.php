@@ -1,5 +1,5 @@
-		<script src='/admin/js/scripts.min.js'></script>
-		<script src="/admin/js/tinymce/tinymce.min.js"></script>
+		<script src='<?=BASE_URL?>/admin/js/scripts.min.js'></script>
+		<script src="<?=BASE_URL?>/admin/js/tinymce/tinymce.min.js"></script>
 		<?
 			if (isset($_SESSION['add_param_error'])) {
 		?>

@@ -10,9 +10,9 @@
 
 		public function get_all_files() {
 			$all_files = array();
-			$all_files['templates'] = $this->get_files_name($_SERVER['DOCUMENT_ROOT'].TEMPLATE_PATH, array("html", "php"));
-			$all_files['css'] = $this->get_files_name($_SERVER['DOCUMENT_ROOT'].CSS_PATH, array("css"));
-			$all_files['js'] = $this->get_files_name($_SERVER['DOCUMENT_ROOT'].JS_PATH, array("js"));
+			$all_files['templates'] = $this->get_files_name($_SERVER['DOCUMENT_ROOT'].BASE_URL.TEMPLATE_PATH, array("html", "php"));
+			$all_files['css'] = $this->get_files_name($_SERVER['DOCUMENT_ROOT'].BASE_URL.CSS_PATH, array("css"));
+			$all_files['js'] = $this->get_files_name($_SERVER['DOCUMENT_ROOT'].BASE_URL.JS_PATH, array("js"));
 
 			return $all_files;
 		}
@@ -158,7 +158,7 @@
 			}
 			
 		    $tempFile = $file['tmp_name'];
-		    $targetPath = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR. $storeFolder . DIRECTORY_SEPARATOR;
+		    $targetPath = $_SERVER['DOCUMENT_ROOT'].BASE_URL.DIRECTORY_SEPARATOR.$storeFolder.DIRECTORY_SEPARATOR;
 		    if (!file_exists($targetPath)) {
 		    	mkdir($targetPath);
 		    }
@@ -423,7 +423,7 @@
 						if (isset($json_value['options'])) {
 							$value_options = $json_value['options'];
 
-							$structure = $this->JSON->get_json($_SERVER['DOCUMENT_ROOT'].CONFIG_PATH)['structure']['pages'];
+							$structure = $this->JSON->get_json($_SERVER['DOCUMENT_ROOT'].BASE_URL.CONFIG_PATH)['structure']['pages'];
 							if ($value_options == "%pages%") {
 								$value_options = $this->get_pages($structure, $json['url']['value']);
 							}
@@ -518,8 +518,8 @@
 		}
 
 		public function check_system() {
-			$config = $this->JSON->get_json($_SERVER['DOCUMENT_ROOT'].CONFIG_PATH);
-			$config_tree = $this->JSON->get_json($_SERVER['DOCUMENT_ROOT'].CONFIG_TREE_PATH);
+			$config = $this->JSON->get_json($_SERVER['DOCUMENT_ROOT'].BASE_URL.CONFIG_PATH);
+			$config_tree = $this->JSON->get_json($_SERVER['DOCUMENT_ROOT'].BASE_URL.CONFIG_TREE_PATH);
 
 			$config_default = unserialize(CONFIG_DEFAULT);
 			$config_tree_default = unserialize(CONFIG_TREE_DEFAULT);
@@ -527,8 +527,8 @@
 			$config = array_replace_recursive($config_default, $config);
 			$config_tree = array_replace_recursive($config_tree_default, $config_tree);
 
-			$this->JSON->save_json($_SERVER['DOCUMENT_ROOT'].CONFIG_PATH, $config);
-			$this->JSON->save_json($_SERVER['DOCUMENT_ROOT'].CONFIG_TREE_PATH, $config_tree);
+			$this->JSON->save_json($_SERVER['DOCUMENT_ROOT'].BASE_URL.CONFIG_PATH, $config);
+			$this->JSON->save_json($_SERVER['DOCUMENT_ROOT'].BASE_URL.CONFIG_TREE_PATH, $config_tree);
 		}
 
 		//remove %n% items from json
@@ -666,7 +666,7 @@
 		public function get_templates($structure) {
 			$templates = array();
 
-			$templates = $this->get_files_name($_SERVER['DOCUMENT_ROOT'].TEMPLATE_PATH, array("html", "php"), true);
+			$templates = $this->get_files_name($_SERVER['DOCUMENT_ROOT'].BASE_URL.TEMPLATE_PATH, array("html", "php"), true);
 
 			return $templates;
 		}
@@ -734,7 +734,7 @@
 		}
 
 		public function mail($subject, $message) {
-			$config = $this->JSON->get_json($_SERVER['DOCUMENT_ROOT'].CONFIG_PATH)['config'];
+			$config = $this->JSON->get_json($_SERVER['DOCUMENT_ROOT'].BASE_URL.CONFIG_PATH)['config'];
 
 			$this->mailer->CharSet   = "UTF-8";
 			$this->mailer->From      = $config['email_from'];

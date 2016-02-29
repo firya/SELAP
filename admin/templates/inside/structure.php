@@ -1,6 +1,6 @@
 <?php
-	$config = $JSON->get_json($_SERVER['DOCUMENT_ROOT'].CONFIG_PATH);
-	$config_tree = $JSON->get_json($_SERVER['DOCUMENT_ROOT'].CONFIG_TREE_PATH);
+	$config = $JSON->get_json($_SERVER['DOCUMENT_ROOT'].BASE_URL.CONFIG_PATH);
+	$config_tree = $JSON->get_json($_SERVER['DOCUMENT_ROOT'].BASE_URL.CONFIG_TREE_PATH);
 
 	$structure = $config['structure'];
 	$tree = $config_tree['structure'];
@@ -40,6 +40,6 @@
 	$parent_tree = $config_tree["structure"]['pages'];
 	$parent_prefix = "structure|pages";
 	$save_prefix = "structure";
-	require_once($_SERVER['DOCUMENT_ROOT']."/admin/templates/inside/add_field.php");
-	require_once($_SERVER['DOCUMENT_ROOT']."/admin/templates/inside/edit_fields.php");
+	require_once($_SERVER['DOCUMENT_ROOT'].BASE_URL."/admin/templates/inside/add_field.php");
+	require_once($_SERVER['DOCUMENT_ROOT'].BASE_URL."/admin/templates/inside/edit_fields.php");
 ?>

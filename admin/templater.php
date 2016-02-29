@@ -38,9 +38,9 @@
 
 	function folder_to_paths($array) {
 		$paths = array();
-		$paths[] = $_SERVER['DOCUMENT_ROOT'].TEMPLATES_PATH;
+		$paths[] = $_SERVER['DOCUMENT_ROOT'].BASE_URL.TEMPLATES_PATH;
 		for ($i=0; $i < count($array); $i++) { 
-			$path_temp = $_SERVER['DOCUMENT_ROOT'].TEMPLATES_PATH;
+			$path_temp = $_SERVER['DOCUMENT_ROOT'].BASE_URL.TEMPLATES_PATH;
 
 			for ($j=0; $j <= $i; $j++) { 
 				$path_temp .= "/".$array[$j]; 
@@ -63,5 +63,5 @@
 		}
 	}
 
-	draw_template(folder_to_paths(find_template($template, dir_to_array($_SERVER['DOCUMENT_ROOT'].TEMPLATES_PATH))));
+	draw_template(folder_to_paths(find_template($template, dir_to_array($_SERVER['DOCUMENT_ROOT'].BASE_URL.TEMPLATES_PATH))));
 ?>

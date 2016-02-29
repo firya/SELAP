@@ -25,6 +25,6 @@
 	if (isset($_GET['exit'])) {
 		unset($_SESSION['login']);
 		setcookie ("hash", "", time() - 3600);
-		header("Location: /admin");
+		header("Location: ".BASE_URL."/admin");
 	}
 ?>

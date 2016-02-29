@@ -4,8 +4,8 @@
 	if (isset($_POST['save_defaults_settings'])) {
 		unset($_POST['save_defaults_settings']);
 
-		$config = $JSON->get_json($_SERVER['DOCUMENT_ROOT'].CONFIG_PATH);
-		$config_tree = $JSON->get_json($_SERVER['DOCUMENT_ROOT'].CONFIG_TREE_PATH);
+		$config = $JSON->get_json($_SERVER['DOCUMENT_ROOT'].BASE_URL.CONFIG_PATH);
+		$config_tree = $JSON->get_json($_SERVER['DOCUMENT_ROOT'].BASE_URL.CONFIG_TREE_PATH);
 
 		$new_defaults = $config['defaults'];
 		$defaults_tree = $config_tree['defaults'];
@@ -20,8 +20,8 @@
 		$config['defaults'] = $new_defaults;
 		$config_tree['defaults'] = $new_defaults_tree;
 
-		$JSON->save_json($_SERVER['DOCUMENT_ROOT'].CONFIG_PATH, $config);
-		$JSON->save_json($_SERVER['DOCUMENT_ROOT'].CONFIG_TREE_PATH, $config_tree);
+		$JSON->save_json($_SERVER['DOCUMENT_ROOT'].BASE_URL.CONFIG_PATH, $config);
+		$JSON->save_json($_SERVER['DOCUMENT_ROOT'].BASE_URL.CONFIG_TREE_PATH, $config_tree);
 
 		header("Location: ".$_SERVER["HTTP_REFERER"]);
 		exit();
@@ -31,8 +31,8 @@
 		unset($_POST['save_structure_settings']);
 
 
-		$config = $JSON->get_json($_SERVER['DOCUMENT_ROOT'].CONFIG_PATH);
-		$config_tree = $JSON->get_json($_SERVER['DOCUMENT_ROOT'].CONFIG_TREE_PATH);
+		$config = $JSON->get_json($_SERVER['DOCUMENT_ROOT'].BASE_URL.CONFIG_PATH);
+		$config_tree = $JSON->get_json($_SERVER['DOCUMENT_ROOT'].BASE_URL.CONFIG_TREE_PATH);
 
 		$new_structure = $config['structure'];
 		$structure_tree = $config_tree['structure'];
@@ -47,8 +47,8 @@
 		$config['structure'] = $new_structure;
 		$config_tree['structure'] = $new_structure_tree;
 
-		$JSON->save_json($_SERVER['DOCUMENT_ROOT'].CONFIG_PATH, $config);
-		$JSON->save_json($_SERVER['DOCUMENT_ROOT'].CONFIG_TREE_PATH, $config_tree);
+		$JSON->save_json($_SERVER['DOCUMENT_ROOT'].BASE_URL.CONFIG_PATH, $config);
+		$JSON->save_json($_SERVER['DOCUMENT_ROOT'].BASE_URL.CONFIG_TREE_PATH, $config_tree);
 
 		header("Location: ".$_SERVER["HTTP_REFERER"]);
 		exit();
@@ -57,7 +57,7 @@
 	if (isset($_POST['save'])) {
 		unset($_POST['save']);
 
-		$json = $JSON->get_json($_SERVER['DOCUMENT_ROOT'].CONFIG_PATH);
+		$json = $JSON->get_json($_SERVER['DOCUMENT_ROOT'].BASE_URL.CONFIG_PATH);
 		
 		if (isset($_POST['save_tree'])) {
 			$tree_item = $_POST['save_tree'];
@@ -67,7 +67,7 @@
 			$json['defaults'] = $_POST;
 		}
 
-		$JSON->save_json($_SERVER['DOCUMENT_ROOT'].CONFIG_PATH, $json);
+		$JSON->save_json($_SERVER['DOCUMENT_ROOT'].BASE_URL.CONFIG_PATH, $json);
 
 		header("Location: ".$_SERVER["HTTP_REFERER"]);
 		exit();
@@ -97,7 +97,7 @@
 		$element = array();
 		$element[$alias] = $_POST['addfield'];
 
-		$json_tree = $JSON->get_json($_SERVER['DOCUMENT_ROOT'].CONFIG_TREE_PATH);
+		$json_tree = $JSON->get_json($_SERVER['DOCUMENT_ROOT'].BASE_URL.CONFIG_TREE_PATH);
 
 		$parent_array = array();
 
@@ -118,16 +118,16 @@
 		}
 
 		$json_tree = array_merge_recursive($json_tree, $element);
-		$JSON->save_json($_SERVER['DOCUMENT_ROOT'].CONFIG_TREE_PATH, $json_tree);
+		$JSON->save_json($_SERVER['DOCUMENT_ROOT'].BASE_URL.CONFIG_TREE_PATH, $json_tree);
 
 		header("Location: ".$_SERVER["HTTP_REFERER"]);
 		exit();
 	}
 
 	if (isset($_POST['check_alias'])) {
-		require_once($_SERVER['DOCUMENT_ROOT']."/admin/config.php");
-		require_once($_SERVER['DOCUMENT_ROOT']."/admin/core.php");
-		require_once($_SERVER['DOCUMENT_ROOT']."/admin/json.php");
+		require_once($_SERVER['DOCUMENT_ROOT'].BASE_URL."/admin/config.php");
+		require_once($_SERVER['DOCUMENT_ROOT'].BASE_URL."/admin/core.php");
+		require_once($_SERVER['DOCUMENT_ROOT'].BASE_URL."/admin/json.php");
 		$Core = new Core();
 		$JSON = new JSON();
 
@@ -156,7 +156,7 @@
 			$key_array[] = $alias;
 		}
 
-		$json_tree = $JSON->get_json($_SERVER['DOCUMENT_ROOT'].CONFIG_TREE_PATH);
+		$json_tree = $JSON->get_json($_SERVER['DOCUMENT_ROOT'].BASE_URL.CONFIG_TREE_PATH);
 		$json_tree_item = $json_tree[$key_array[0]];
 		array_shift($key_array);
 
