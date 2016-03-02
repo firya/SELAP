@@ -19,7 +19,6 @@
 
 	$structure = $JSON->get_json($_SERVER['DOCUMENT_ROOT'].BASE_URL.CONFIG_PATH)['structure']['pages'];
 
-	$SELAP = array();
 	$SELAP['page'] = $Core->get_page($structure, $routes);
 	$SELAP['menu'] = $Core->get_menu($structure);
 
