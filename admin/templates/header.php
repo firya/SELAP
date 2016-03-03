@@ -3,7 +3,7 @@
 <head>
 	<meta charset='utf-8'>
 
-	<title>Super Light Admin Panel</title>
+	<title>SELAP</title>
 
 	<meta name='author' content='Максим Лебедев'/>
 
@@ -41,8 +41,8 @@
 	<link rel="manifest" href="<?=BASE_URL?>/admin/images/favicons/manifest.json">
 	<link rel="mask-icon" href="<?=BASE_URL?>/admin/images/favicons/safari-pinned-tab.svg" color="#5c94fe">
 	<link rel="shortcut icon" href="<?=BASE_URL?>/admin/images/favicons/favicon.ico">
-	<meta name="apple-mobile-web-app-title" content="SEAP">
-	<meta name="application-name" content="SEAP">
+	<meta name="apple-mobile-web-app-title" content="SELAP">
+	<meta name="application-name" content="SELAP">
 	<meta name="msapplication-TileColor" content="#da532c">
 	<meta name="msapplication-TileImage" content="<?=BASE_URL?>/admin/images/favicons/mstile-144x144.png">
 	<meta name="msapplication-config" content="<?=BASE_URL?>/admin/images/favicons/browserconfig.xml">

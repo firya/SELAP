@@ -425,7 +425,8 @@
 
 							$structure = $this->JSON->get_json($_SERVER['DOCUMENT_ROOT'].BASE_URL.CONFIG_PATH)['structure']['pages'];
 							if ($value_options == "%pages%") {
-								$value_options = $this->get_pages($structure, $json['url']['value']);
+								$current = (isset($options['hide'])) ? "%n%" : $json['url']['value'];
+								$value_options = $this->get_pages($structure, $current);
 							}
 							if ($value_options == "%templates%") {
 								$value_options = $this->get_templates($structure);
@@ -737,16 +738,17 @@
 			return $full_url;
 		}
 
-		public function mail($subject, $message) {
+		public function mail($subject, $message, $emailto = array()) {
 			$config = $this->JSON->get_json($_SERVER['DOCUMENT_ROOT'].BASE_URL.CONFIG_PATH)['config'];
 
+			$emailto = (!empty($emailto)) ? $emailto : $config['email_to'];
 			$this->mailer->CharSet   = "UTF-8";
 			$this->mailer->From      = $config['email_from'];
 			$this->mailer->FromName  = $_SERVER['SERVER_NAME'];
 			$this->mailer->Subject   = $subject;
 			$this->mailer->Body      = $message;
 			$this->mailer->isHTML(true);
-			foreach ($config['email_to'] as $mail_address) {
+			foreach ($emailto as $mail_address) {
 				$this->mailer->AddAddress($mail_address);
 			}
 

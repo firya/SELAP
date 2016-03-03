@@ -2,7 +2,7 @@
 	define("LOGIN", "admin"); // Логин доступа в админ панель
 	define("PASSWORD", "password1"); // Пароль доступа в админ панель
 
-	define("BASE_URL", "/selap"); // Путь до директории в которую установлена админ-панель
+	define("BASE_URL", ""); // Путь до директории в которую установлена админ-панель
 	define("CONFIG_PATH", "/config.json"); // Путь к файлу, где будет храниться конфиг
 	define("CONFIG_TREE_PATH", "/admin/config_tree.json"); // Путь к файлу, где будет храниться вспомогательный конфиг
 	define("FILEMANAGER_PATH", "/files"); // Папка в которую будут загружаться файлы
