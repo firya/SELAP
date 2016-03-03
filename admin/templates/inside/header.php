@@ -1,5 +1,5 @@
 <aside class="a-side">
-	<a href="/admin" class="a-logo"></a>
+	<a href="<?=BASE_URL;?>/admin" class="a-logo"></a>
 	<nav class="a-nav">
 		<a href="<?=BASE_URL;?>/admin/edit-config" class="a-nav__link <?=($active_menu == 'config') ? "a-nav__link-active" : ""; ?>">
 			<span class="a-nav__content">

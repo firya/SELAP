@@ -6,10 +6,9 @@
 	define("CONFIG_PATH", "/config.json"); // Путь к файлу, где будет храниться конфиг
 	define("CONFIG_TREE_PATH", "/admin/config_tree.json"); // Путь к файлу, где будет храниться вспомогательный конфиг
 	define("FILEMANAGER_PATH", "/files"); // Папка в которую будут загружаться файлы
-	define("HTML_PATH", "/templates"); // Путь к html файлам
+	define("TEMPLATE_PATH", "/templates"); // Путь к шаблонам
 	define("CSS_PATH", "/css"); // путь к css файлам
 	define("JS_PATH", "/js"); // путь к js файлам
-	define("TEMPLATE_PATH", "/templates"); // Путь к шаблонам
 
 	define("TEMPLATES_PATH", "/admin/templates");
 	define("FIELD_TYPES", serialize(array(
