@@ -13,6 +13,7 @@
 			$all_files['templates'] = $this->get_files_name($_SERVER['DOCUMENT_ROOT'].BASE_URL.TEMPLATE_PATH, array("html", "php"));
 			$all_files['css'] = $this->get_files_name($_SERVER['DOCUMENT_ROOT'].BASE_URL.CSS_PATH, array("css"));
 			$all_files['js'] = $this->get_files_name($_SERVER['DOCUMENT_ROOT'].BASE_URL.JS_PATH, array("js"));
+			$all_files['mail'] = $this->get_files_name($_SERVER['DOCUMENT_ROOT'].BASE_URL.MAIL_TEMPLATE_PATH, array("php"));
 
 			return $all_files;
 		}
@@ -738,8 +739,35 @@
 			return $full_url;
 		}
 
-		public function mail($subject, $message, $emailto = array()) {
+		/*
+			$subject - тема письма
+			$data - двумерный массив данных
+			$template - название шаблона лежащего в директории указанной в config.php, например default.php
+			$files - массив абсолютных путей до файлов на севрере, которые необходимо отправить
+			$emailto - массив email на которые отправлять письма, по умолчанию берутся из config.json
+		*/
+		public function mail($subject, $data, $template = '', $files = array(), $emailto = array()) {
 			$config = $this->JSON->get_json($_SERVER['DOCUMENT_ROOT'].BASE_URL.CONFIG_PATH)['config'];
+
+			$message = "";
+			$altmessage = "";
+
+			foreach ($data as $key => $value) {
+				$altmessage .= $key.": ".$value."\r\n";
+			}
+
+			if (file_exists($_SERVER['DOCUMENT_ROOT'].BASE_URL.MAIL_TEMPLATE_PATH.'/'.$template) && $template != "") {
+				ob_start();
+				include($_SERVER['DOCUMENT_ROOT'].BASE_URL.MAIL_TEMPLATE_PATH.'/'.$template);
+				$message = ob_get_contents();
+				ob_end_clean();
+			} else {
+				$message = $altmessage;
+			}
+
+			$mail_data = $this->JSON->get_json($_SERVER['DOCUMENT_ROOT'].BASE_URL.MAIL_DATA_PATH);
+			$mail_data[] = $this->create_mail_item($subject, $data, $files);
+			$this->JSON->save_json($_SERVER['DOCUMENT_ROOT'].BASE_URL.MAIL_DATA_PATH, $mail_data);
 
 			$emailto = (!empty($emailto)) ? $emailto : $config['email_to'];
 			$this->mailer->CharSet   = "UTF-8";
@@ -747,12 +775,146 @@
 			$this->mailer->FromName  = $_SERVER['SERVER_NAME'];
 			$this->mailer->Subject   = $subject;
 			$this->mailer->Body      = $message;
+			$this->mailer->AltBody   = $altmessage;
 			$this->mailer->isHTML(true);
+
+			if (count($files) > 0) {
+				foreach ($files as $file) {
+					$this->mailer->addAttachment($file);
+				}
+			}
+
 			foreach ($emailto as $mail_address) {
 				$this->mailer->AddAddress($mail_address);
 			}
 
 			$this->mailer->send();
+		}
+
+		public function create_mail_item($subject, $data, $files) {
+			$item = array(
+				'subject' => $subject, 
+				'date' => date('Y-m-d G:i:s')
+			);
+			$item['data'] = array();
+			foreach ($data as $key => $value) {
+				$item['data'][$key] = $value;
+			}
+			$item['files'] = array();
+			foreach ($files as $key => $value) {
+				$item['files'][$key] = $value;
+			}
+
+			return $item;
+		}
+
+		public function create_mail_list($data) {
+			$mail_list = '<div class="a-maillist">';
+
+			foreach ($data as $mail_key => $mail) {
+				$header_class = '';
+				$content_class = '';
+				if (isset($_COOKIE["mail|".$mail_key])) {
+					$header_class = "i-accordeon-header-active";
+					$content_class = "i-accordeon-content-active";
+				}
+
+				$mail_list .= '<div class="a-maillist__item">';
+				$mail_list .= '<div class="a-maillist__header i-accordeon-header '.$header_class.'" data-id="mail|'.$mail_key.'">';
+				$mail_list .= '<div class="a-maillist__date">'.$this->date_format($mail['date']).'</div>';
+				$mail_list .= '<div class="a-maillist__subject">'.$mail['subject'].'</div>';
+				$mail_list .= '</div>';
+				$mail_list .= '<div class="a-maillist__content '.$content_class.'">';
+				if (count($mail['files']) > 0) {
+					$mail_list .= '<div class="a-maillist__files">';
+					foreach ($mail['files'] as $file) {
+						$ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+						$filename = "";
+						$file_remove_class = "";
+						$file_picture_class = "";
+						if ($file != "") {
+							$file_remove_class = "a-file__remove-active";
+							$filename = pathinfo($file, PATHINFO_FILENAME).".".$ext;
+						}
+
+						switch ($ext) {
+							case 'jpg':
+							case 'jpeg':
+							case 'gif':
+							case 'png':
+							case 'svg':
+								unset($ext);
+								break;
+							
+							default:
+								break;
+						}
+
+						$mail_list .= '<a href="'.$file.'" target="_blank" class="a-file a-file-small a-file-multi">';
+						$mail_list .= '<span class="a-file__block">';
+						if (!isset($ext)) {
+							$mail_list .= '<span class="a-file__picture ">';
+							$mail_list .= '<img class="a-file__image" src="'.$file.'">';
+							$mail_list .= '</span>';
+						} else {
+							$mail_list .= '<span class="a-file__add">';
+							$mail_list .= '<i class="icon-file"></i>';
+							$mail_list .= '<span class="a-file__ext">.'.$ext.'</span>';
+							$mail_list .= '</span>';
+						}
+						$mail_list .= '</span>';
+						$mail_list .= '<span class="a-file__name" title="">'.$filename.'</span>';
+						$mail_list .= '</a>';
+					}
+					$mail_list .= '</div>';
+				}
+				if (count($mail['data']) > 0) {
+					$mail_list .= '<div class="a-maillist__text">';
+					foreach ($mail['data'] as $key => $value) {
+						$mail_list .= '<div class="a-maillist__row">';
+						$mail_list .= '<div class="a-maillist__label">'.$key.':</div>';
+						$mail_list .= '<div class="a-maillist__value">'.$value.'</div>';
+						$mail_list .= '</div>';
+					}
+					$mail_list .= '</div>';
+				}
+				$mail_list .= '</div>';
+				$mail_list .= '</div>';
+			}
+			$mail_list .= '</div>';
+
+			return $mail_list;
+		}
+
+		public function date_format($date) {
+			$new_date = '';
+			$date_to_time = strtotime($date);
+			$current_date = strtotime(date("Y-m-d G:i:s"));
+
+			$nmonth = array(
+				1 => 'янв',
+				2 => 'фев',
+				3 => 'мар',
+				4 => 'апр',
+				5 => 'мая',
+				6 => 'июн',
+				7 => 'июл',
+				8 => 'авг',
+				9 => 'сен',
+				10 => 'окт',
+				11 => 'ноя',
+				12 => 'дек'
+			);
+
+			if (date("Y.m.d", $date_to_time) == date("Y.m.d", $current_date)) {
+				$new_date = date("G:i", $date_to_time);
+			} else if (date("Y.m", $date_to_time) == date("Y.m", $current_date)) {
+				$new_date = date("d", $date_to_time)." ".$nmonth[date("n", $date_to_time)];
+			} else if (date("Y", $date_to_time) != date("Y", $current_date)) {
+				$new_date = date("d", $date_to_time)." ".$nmonth[date("n", $date_to_time)]." ".date("Y", $date_to_time);
+			}
+
+			return $new_date;
 		}
 	}
 ?>

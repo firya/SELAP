@@ -40,6 +40,10 @@
 				$active_menu = "js";
 				$template = "js.php";
 				break;
+			case 'mail':
+				$active_menu = "mail";
+				$template = "mail.php";
+				break;
 			
 			default:
 				$active_menu = "params";

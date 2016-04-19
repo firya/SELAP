@@ -1,171 +1,117 @@
-var gulp 				= require('gulp');
-var postcss 			= require('gulp-postcss');
-var browserSync 		= require('browser-sync');
-var uglify 				= require('gulp-uglifyjs');
-var concat 				= require('gulp-concat');
-var tinypng 			= require('gulp-tinypng');
-var changed 			= require('gulp-changed');
-var watch 				= require('gulp-watch');
-var cssnext 			= require('cssnext');
-var postcssOpacity 		= require("postcss-opacity");
-var postcssNested 		= require("postcss-nested");
-var postcssClearfix 	= require("postcss-clearfix");
-var cssMqpacker 		= require("css-mqpacker");
-var postcssCenter 		= require("postcss-center");
-var rucksack 			= require('rucksack-css');
-var csscomb 			= require('gulp-csscomb');
-var comments 			= require('postcss-discard-comments');
+'use strict';
 
-var path = {
+const fs 				= require('fs')
+const path 				= require('path');
+const del 				= require('del');
+const gulp 				= require('gulp');
+const sourcemaps 		= require('gulp-sourcemaps');
+const browserSync 		= require('browser-sync').create();
+const postcss 			= require('gulp-postcss');
+const svgSprite 		= require('gulp-svg-sprite');
+const gulpIf 			= require('gulp-if');
+const cssnano 			= require('gulp-cssnano');
+const plumber 			= require('gulp-plumber');
+const notify 			= require('gulp-notify');
+const uglify 			= require('gulp-uglifyjs');
+const concat 			= require('gulp-concat');
+const cssnext 			= require('cssnext');
+const postcssOpacity 	= require("postcss-opacity");
+const postcssNested 	= require("postcss-nested");
+const postcssClearfix 	= require("postcss-clearfix");
+const cssMqpacker 		= require("css-mqpacker");
+const csscomb 			= require('gulp-csscomb');
+const rucksack 			= require('rucksack-css');
+const newer 			= require('gulp-newer');
+const debug 			= require('gulp-debug');
+const remember 			= require('gulp-remember');
+const cached 			= require('gulp-cached');
+const imagemin 			= require('gulp-imagemin');
+const pngquant 			= require('imagemin-pngquant');
+const tinypng 			= require('gulp-tinypng');
+const svg2png 			= require('gulp-svg2png');
+const realFavicon 		= require('gulp-real-favicon');
+const mjml 				= require('gulp-mjml');
+
+var paths = {
 	root: "./", 
-	images: {
-		src: '_dev/images/',
-		dst: 'images/',
-		jpg: './images/**/*.jpg',
-		png: './images/**/*.png',
-	},
+	src: "_dev", 
+	dst: "", 
 	js: {
-		src: '_dev/js/', 
-		dst: 'js/', 
-		filter: '*.js'
+		src: '/js/', 
+		dst: 'js/'
 	}, 
 	css: {
-		src: '_dev/css/', 
-		dst: 'css/', 
-		filter: '**/*.css'
-	}, 
+		src: '/css/', 
+		dst: 'css/'
+	}
 };
 
-function errorLog(error) {
-	console.error.bind(error);
-	this.emit('end');
-}
-
-// Scripts
-gulp.task('scripts', function() {
-	gulp.src([path.js.src+'jquery-1.11.2.js', path.js.src+'*.js', path.js.src+'myscripts.js', path.js.src+'filemanager.js'])
-		.pipe(concat('scripts.min.js'))
+gulp.task('scripts', function(callback) {
+	gulp.src([paths.src+paths.js.src+'jquery-1.11.2.js', paths.src+paths.js.src+'*.js', paths.src+paths.js.src+'myscripts.js'])
+		.pipe(plumber({
+				errorHandler: notify.onError(err => ({
+				title: 'Scripts',
+				message: err.message
+			}))
+		}))
+		.pipe(cached('scripts'))
+		.pipe(remember('scripts'))
 		.pipe(uglify({
-			compress: false, 
 			mangle: false, 
 			output: {
 				beautify: true
 			}
 		}))
-		.on('error', errorLog)
-		.pipe(gulp.dest(path.js.dst));
+		.pipe(concat('scripts.min.js'))
+		.pipe(gulp.dest(paths.dst+paths.js.dst));
+
+	gulp.src([paths.src+paths.js.src+'vendor/**/*.*'])
+		.pipe(gulp.dest(paths.dst+paths.js.dst));
+
+	callback();
 });
 
-// Styles
-var row = function (css, opts) {
-	css.walkDecls(function(decl) {
-		if (decl.prop === 'row') {
-			var gutter = 20;
-			gutter = decl.value;
-
-			var origRule = decl.parent;
-			origRule.insertBefore(decl, {
-				prop: 'position',
-				value: 'relative'
-			}).insertBefore(decl, {
-				prop: 'display',
-				value: 'block'
-			}).insertBefore(decl, {
-				prop: 'margin-left',
-				value: -(gutter/2)+"px"
-			}).insertBefore(decl, {
-				prop: 'margin-right',
-				value: -(gutter/2)+"px"
-			}).insertBefore(decl, {
-				prop: 'clear',
-				value: 'fix'
-			});
-
-			decl.remove();
-		}
-	});
-};
-var column = function (css, opts) {
-	css.walkDecls(function(decl) {
-		if (decl.prop === 'column') {
-			var params = decl.value.split(" ");
-			var column = params[0].split("/");
-			var width = 1;
-			if (params[0].indexOf("/") > 0) {
-				width = (100*column[0]/column[1])+"%";
-			} else {
-				width = (100*column[0])+"%";
-			}
-			var gutter = 20;
-			if (params.length == 2) {
-				gutter = params[1];
-			}
-			
-
-			var origRule = decl.parent;
-
-			origRule.insertBefore(decl, {
-				prop: 'width',
-				value: width
-			}).insertBefore(decl, {
-				prop: 'max-width',
-				value: width
-			}).insertBefore(decl, {
-				prop: 'float',
-				value: 'left'
-			}).insertBefore(decl, {
-				prop: 'padding-left',
-				value: (gutter/2)+"px"
-			}).insertBefore(decl, {
-				prop: 'padding-right',
-				value: (gutter/2)+"px"
-			}).insertBefore(decl, {
-				prop: 'box-sizing',
-				value: 'border-box'
-			});
-
-			decl.remove();
-		}
-	});
-};
-
-gulp.task('styles', function() {
+gulp.task('styles', function(callback) {
 	var processors = [
 		postcssOpacity(), 
-		row, 
-		column, 
 		postcssClearfix(), 
 		postcssNested(), 
 		cssMqpacker(), 
-		postcssCenter(), 
 		rucksack(), 
-		comments({removeAll: true}), 
 		cssnext({
 			"browsers": "last 5 versions"
 		})
 	];
 
-	gulp.src([path.css.src+'normalize.css', path.css.src+'common.css', path.css.src+path.css.filter])
+	return gulp.src([paths.src+paths.css.src+'normalize.css', paths.src+paths.css.src+'common.css', paths.src+paths.css.src+'**/*.css'])
+		.pipe(plumber({
+				errorHandler: notify.onError(err => ({
+				title: 'Styles',
+				message: err.message
+			}))
+		}))
+		.pipe(cached('styles'))
+		.pipe(remember('styles'))
 		.pipe(concat('style.min.css'))
 		.pipe(postcss(processors))
-		.on('error', errorLog)
+		.pipe(cssnano({
+			core: false, 
+			autoprefixer: false, 
+			discardComments: {removeAll: true}
+		}))
 		.pipe(csscomb())
-		.on('error', errorLog)
-		.pipe(gulp.dest(path.css.dst));
+		.pipe(gulp.dest(paths.dst+paths.css.dst));
 });
 
-gulp.task('images', function() {
-	gulp.src([path.images.jpg, path.images.png], {base: '_dev/'})
-		.pipe(tinypng('4ZqKPaFVLzm22rdBdxXLt67utMzi7Zqu'))
-		.on('error', errorLog)
-		.pipe(gulp.dest(path.images.dst));
+gulp.task('watch', function() {
+	gulp.watch(paths.src+paths.css.src, gulp.series('styles')).on('unlink', function(filepath) {
+		remember.forget('styles', path.resolve(filepath));
+		delete cached.caches.styles[path.resolve(filepath)];
+	});
+	gulp.watch(paths.src+paths.js.src, gulp.series('scripts')).on('unlink', function(filepath) {
+		remember.forget('scripts', path.resolve(filepath));
+		delete cached.caches.scripts[path.resolve(filepath)];
+	});
 });
 
-//Watcher
-gulp.task('watch', function () {
-	gulp.watch(path.js.src+'**/*.js', ['scripts']);
-	gulp.watch(path.css.src+'**/*.css', ['styles']);
-	gulp.watch(['**/*.php', '**/*.html']);
-})
-
-gulp.task('default', ['scripts', 'styles', 'watch']);
+gulp.task('default', gulp.series(gulp.parallel('scripts', 'styles'), gulp.parallel('watch')));

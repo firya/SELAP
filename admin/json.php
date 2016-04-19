@@ -192,5 +192,34 @@
 
 			return $new_json;
 		}
+
+		public function get_option_value($option_key) {
+			$json = $this->get_json($_SERVER['DOCUMENT_ROOT'].BASE_URL.CONFIG_PATH);
+			$json_tree = $this->get_json($_SERVER['DOCUMENT_ROOT'].BASE_URL.CONFIG_TREE_PATH);
+
+			$json_key_array = $option_key;
+			$json_tree_key_array = array();
+
+			for ($i= 0 ; $i < count($option_key); $i++) { 
+				if ($i > 1) {
+					array_push($json_tree_key_array, 'children');
+				}
+				array_push($json_tree_key_array, $option_key[$i]);
+			}
+
+			$option_value = $this->get_json_value($json, $json_key_array);
+			$options = $this->get_json_value($json_tree, $json_tree_key_array);
+
+			$result = false;
+			if (isset($options['options'])) {
+				if ($option_value != '') {
+					if (isset($options['options'][$option_value])) {
+						$result = $options['options'][$option_value];
+					}
+				}
+			}
+
+			return $result;
+		}
 	}
 ?>

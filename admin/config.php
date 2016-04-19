@@ -5,8 +5,10 @@
 	define("BASE_URL", ""); // Путь до директории в которую установлена админ-панель
 	define("CONFIG_PATH", "/config.json"); // Путь к файлу, где будет храниться конфиг
 	define("CONFIG_TREE_PATH", "/admin/config_tree.json"); // Путь к файлу, где будет храниться вспомогательный конфиг
+	define("MAIL_DATA_PATH", "/admin/mail.json"); // Путь к файлу, куда будут сохраняться данные отправленные через функцию mail
 	define("FILEMANAGER_PATH", "/files"); // Папка в которую будут загружаться файлы
 	define("TEMPLATE_PATH", "/templates"); // Путь к шаблонам
+	define("MAIL_TEMPLATE_PATH", "/templates/mail"); // Путь к шаблонам писем
 	define("CSS_PATH", "/css"); // путь к css файлам
 	define("JS_PATH", "/js"); // путь к js файлам
 

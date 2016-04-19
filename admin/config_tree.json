@@ -12,7 +12,9 @@
             "type": "text"
         }
     },
-    "defaults": [],
+    "defaults": {
+        
+    },
     "structure": {
         "pages": {
             "name": "Страницы",

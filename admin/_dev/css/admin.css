@@ -139,6 +139,8 @@ body {
 	color: #fff;
 	background-color: #37476C;
 	z-index: 10;
+	max-height: 100%;
+	overflow-y: scroll;
 }
 .a-logo {
 	display: block;
@@ -203,6 +205,9 @@ body {
 		font-size: 18px;
 	}
 	&.icon-page {
+		font-size: 26px;
+	}
+	&.icon-mail {
 		font-size: 26px;
 	}
 }
@@ -346,6 +351,28 @@ body {
 			border-color: #939bae;
 		}
 	}
+
+	&.a-file-small {
+		width: 64px;
+
+		.a-file__block {
+			width: 64px;
+			height: 64px;
+		}
+
+		.a-file__add {
+			font-size: 40px;
+		}
+	
+		.a-file__ext {
+			font-size: 10px;
+			padding: 1px 2px;
+		}
+	}
+
+	&.a-file-multi {
+		margin-left: 5px;
+	}
 }
 .a-file__block {
 	display: block;
@@ -374,10 +401,18 @@ body {
 	}
 }
 .a-file__picture {
+	display: block;
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+.a-file__image {
 	position: absolute;
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
+	max-width: 100%;
+	max-height: 100%;
 }
 .a-file__overlay {
 	position: absolute;
@@ -644,6 +679,72 @@ body {
 
 .a-filemanager {
 	padding-top: 100% !important;
+}
+
+.a-maillist {
+
+}
+.a-maillist__item {
+	display: block;
+    margin: 0 0 0px;
+    padding: 0;
+}
+.a-maillist__header {
+	display: block;
+	padding: 10px 20px 10px 20px;
+	background-color: #fff;
+	border: 1px solid #e8f1f5;
+	cursor: pointer;
+	clear: fix;
+	cursor: pointer;
+}
+.a-maillist__subject {
+	overflow: hidden;
+}
+.a-maillist__date {
+	float: right;
+	text-align: right;
+	max-width: 120px;
+	margin-left: 20px;
+	font-size: 13px;
+	color: #666;
+	line-height: 22px;
+}
+.a-maillist__content {
+	display: none;
+	margin: 0 0 0px;
+	padding: 0;
+	padding: 20px;
+	background-color: #fff;
+	background-color: hsla(0,0%,100%,.7);
+	border: 1px solid #e8f1f5;
+	border-radius: 3px;
+	clear: fix;
+}
+.a-maillist__files {
+	float: right;
+	text-align: right;
+	margin-left: 20px;
+	max-width: 50%;
+	width: auto;
+}
+.a-maillist__text {
+	overflow: hidden;
+}
+.a-maillist__row {
+	margin-bottom: 5px;
+}
+.a-maillist__label {
+	font-weight: bold;
+	display: inline-block;
+	margin-right: 5px;
+}
+.a-maillist__value {
+	display: inline-block;
+}
+
+.i-accordeon-content-active {
+	display: block !important;
 }
 
 @media all and (max-width: 800px) {

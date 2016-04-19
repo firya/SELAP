@@ -334,6 +334,8 @@ $(function() {
 			item.find(".a-file__picture").addClass("a-file__picture-exist");
 			item.find(".a-file__image").attr("src", value);
 		} else {
+			item.find(".a-file__picture").removeClass("a-file__picture-exist");
+			item.find(".a-file__image").attr("src", '');
 			item.find(".a-file__ext").html("."+ext);
 		}
 		
@@ -445,7 +447,7 @@ $(function() {
 			target.sortable(sortable_options);
 		});
 	}
-
+	// Заменить эту функцию на следующую везде
 	$(document).on("click", ".a-paramtree__header", function(event) {
 		event.preventDefault();
 		var target = $(this);
@@ -453,6 +455,19 @@ $(function() {
 		content.toggleClass("a-paramtree-active");
 		target.toggleClass("a-paramtree__header-active");
 		if (target.hasClass("a-paramtree__header-active")) {
+			Cookies.set(target.data("id"), true);
+		} else {
+			Cookies.remove(target.data("id"));
+		}
+	});
+
+	$(document).on("click", ".i-accordeon-header", function(event) {
+		event.preventDefault();
+		var target = $(this);
+		var content = target.next();
+		content.toggleClass("i-accordeon-content-active");
+		target.toggleClass("i-accordeon-header-active");
+		if (target.hasClass("i-accordeon-header-active")) {
 			Cookies.set(target.data("id"), true);
 		} else {
 			Cookies.remove(target.data("id"));

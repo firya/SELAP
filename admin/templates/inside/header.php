@@ -19,6 +19,12 @@
 				<span class="a-nav__text">Структура</span>
 			</span>
 		</a>
+		<a href="<?=BASE_URL;?>/admin/mail" class="a-nav__link <?=($active_menu == 'mail') ? "a-nav__link-active" : ""; ?>">
+			<span class="a-nav__content">
+				<i class="a-nav__icon icon-mail"></i>
+				<span class="a-nav__text">Письма</span>
+			</span>
+		</a>
 		<a href="<?=BASE_URL;?>/admin/edit-code" class="a-nav__link <?=($active_menu == 'code') ? "a-nav__link-active" : ""; ?>">
 			<span class="a-nav__content">
 				<i class="a-nav__icon icon-css"></i>
