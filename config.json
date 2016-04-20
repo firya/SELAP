@@ -5,9 +5,7 @@
         ],
         "email_from": "test@selap.dev"
     },
-    "defaults": {
-        
-    },
+    "defaults": [],
     "structure": {
         "pages": [
             {
