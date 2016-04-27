@@ -501,6 +501,16 @@ $(function() {
 		reorder_items(parent, item.data("id").split("|"));
 	});
 
+	$(document).on("click", ".i-maillist__remove", function(event) {
+		event.preventDefault();
+
+		var target = $(this);
+
+		var item = target.closest(".a-maillist__item");
+
+		item.remove();
+	});
+
 	$(document).on("click", ".i-paramtree__clear", function(event) {
 		event.preventDefault();
 

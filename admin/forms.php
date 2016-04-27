@@ -73,6 +73,20 @@
 		exit();
 	}
 
+	if (isset($_POST['save_mail'])) {
+		unset($_POST['save_mail']);
+		$mail_array = array();
+
+		foreach ($_POST['mail'] as $key => $value) {
+			$mail_array[] = $value;
+		}
+
+		$JSON->save_json($_SERVER['DOCUMENT_ROOT'].BASE_URL.MAIL_DATA_PATH, $mail_array);
+
+		header("Location: ".$_SERVER["HTTP_REFERER"]);
+		exit();
+	}
+
 	if (isset($_POST['add_params'])) {
 		unset($_POST['add_params']);
 

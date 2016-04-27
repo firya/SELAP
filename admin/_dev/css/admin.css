@@ -688,6 +688,15 @@ body {
 	display: block;
     margin: 0 0 0px;
     padding: 0;
+
+    &:hover {
+    	.a-maillist__date {
+			display: none;
+    	}
+    	.a-maillist__remove {
+			display: block;
+    	}
+    }
 }
 .a-maillist__header {
 	display: block;
@@ -701,14 +710,28 @@ body {
 .a-maillist__subject {
 	overflow: hidden;
 }
-.a-maillist__date {
+.a-maillist__right {
 	float: right;
 	text-align: right;
+}
+.a-maillist__date {
 	max-width: 120px;
 	margin-left: 20px;
 	font-size: 13px;
 	color: #666;
 	line-height: 22px;
+}
+.a-maillist__remove {
+	display: none;
+	font-size: 12px;
+	padding-top: 2px;
+	text-decoration: none !important;
+	border-bottom: 1px dashed;
+	color: #E26F5D !important;
+
+	&:hover {
+		border-bottom: none;
+	}
 }
 .a-maillist__content {
 	display: none;

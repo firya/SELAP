@@ -819,54 +819,62 @@
 					$content_class = "i-accordeon-content-active";
 				}
 
-				$mail_list .= '<div class="a-maillist__item">';
-				$mail_list .= '<div class="a-maillist__header i-accordeon-header '.$header_class.'" data-id="mail|'.$mail_key.'">';
+				$mail_list .= '<div class="a-maillist__item" data-id="mail|'.$mail_key.'">';
+				$mail_list .= '<div class="a-maillist__header i-accordeon-header '.$header_class.'">';
+				$mail_list .= '<div class="a-maillist__right">';
 				$mail_list .= '<div class="a-maillist__date">'.$this->date_format($mail['date']).'</div>';
+				$mail_list .= '<a href="" class="a-maillist__remove i-maillist__remove">Удалить</a>';
+				$mail_list .= '</div>';
 				$mail_list .= '<div class="a-maillist__subject">'.$mail['subject'].'</div>';
+				$mail_list .= '<input type="hidden" id="mail_'.$mail_key.'_subject" name="mail['.$mail_key.'][subject]" value="'.$mail['subject'].'">';
+				$mail_list .= '<input type="hidden" id="mail_'.$mail_key.'_date" name="mail['.$mail_key.'][date]" value="'.$mail['date'].'">';
 				$mail_list .= '</div>';
 				$mail_list .= '<div class="a-maillist__content '.$content_class.'">';
-				if (count($mail['files']) > 0) {
-					$mail_list .= '<div class="a-maillist__files">';
-					foreach ($mail['files'] as $file) {
-						$ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
-						$filename = "";
-						$file_remove_class = "";
-						$file_picture_class = "";
-						if ($file != "") {
-							$file_remove_class = "a-file__remove-active";
-							$filename = pathinfo($file, PATHINFO_FILENAME).".".$ext;
-						}
+				if (isset($mail['files'])) {
+					if (count($mail['files']) > 0) {
+						$mail_list .= '<div class="a-maillist__files">';
+						foreach ($mail['files'] as $file_key => $file) {
+							$ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+							$filename = "";
+							$file_remove_class = "";
+							$file_picture_class = "";
+							if ($file != "") {
+								$file_remove_class = "a-file__remove-active";
+								$filename = pathinfo($file, PATHINFO_FILENAME).".".$ext;
+							}
 
-						switch ($ext) {
-							case 'jpg':
-							case 'jpeg':
-							case 'gif':
-							case 'png':
-							case 'svg':
-								unset($ext);
-								break;
-							
-							default:
-								break;
-						}
+							switch ($ext) {
+								case 'jpg':
+								case 'jpeg':
+								case 'gif':
+								case 'png':
+								case 'svg':
+									unset($ext);
+									break;
+								
+								default:
+									break;
+							}
 
-						$mail_list .= '<a href="'.$file.'" target="_blank" class="a-file a-file-small a-file-multi">';
-						$mail_list .= '<span class="a-file__block">';
-						if (!isset($ext)) {
-							$mail_list .= '<span class="a-file__picture ">';
-							$mail_list .= '<img class="a-file__image" src="'.$file.'">';
+							$mail_list .= '<a href="'.$file.'" target="_blank" class="a-file a-file-small a-file-multi">';
+							$mail_list .= '<span class="a-file__block">';
+							if (!isset($ext)) {
+								$mail_list .= '<span class="a-file__picture ">';
+								$mail_list .= '<img class="a-file__image" src="'.$file.'">';
+								$mail_list .= '</span>';
+							} else {
+								$mail_list .= '<span class="a-file__add">';
+								$mail_list .= '<i class="icon-file"></i>';
+								$mail_list .= '<span class="a-file__ext">.'.$ext.'</span>';
+								$mail_list .= '</span>';
+							}
 							$mail_list .= '</span>';
-						} else {
-							$mail_list .= '<span class="a-file__add">';
-							$mail_list .= '<i class="icon-file"></i>';
-							$mail_list .= '<span class="a-file__ext">.'.$ext.'</span>';
-							$mail_list .= '</span>';
+							$mail_list .= '<span class="a-file__name" title="">'.$filename.'</span>';
+							$mail_list .= '</a>';
+							$mail_list .= '<input type="hidden" id="mail_'.$mail_key.'_files_'.$file_key.'_'.$file.'" name="mail['.$mail_key.'][files]['.$file_key.']['.$file.']" value="'.$file.'">';
 						}
-						$mail_list .= '</span>';
-						$mail_list .= '<span class="a-file__name" title="">'.$filename.'</span>';
-						$mail_list .= '</a>';
+						$mail_list .= '</div>';
 					}
-					$mail_list .= '</div>';
 				}
 				if (count($mail['data']) > 0) {
 					$mail_list .= '<div class="a-maillist__text">';
@@ -875,6 +883,7 @@
 						$mail_list .= '<div class="a-maillist__label">'.$key.':</div>';
 						$mail_list .= '<div class="a-maillist__value">'.$value.'</div>';
 						$mail_list .= '</div>';
+						$mail_list .= '<input type="hidden" id="mail_'.$mail_key.'_data_'.$key.'" name="mail['.$mail_key.'][data]['.$key.']" value="'.$value.'">';
 					}
 					$mail_list .= '</div>';
 				}

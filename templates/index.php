@@ -1,5 +1,5 @@
 <?
-	
+	$Core->mail("Тема", array('test' => "1111", "test2" => "2222"), '');
 ?>
 <!DOCTYPE html>
 <html>

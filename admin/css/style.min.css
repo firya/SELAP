@@ -1162,6 +1162,12 @@ body {
 	margin: 0;
 	padding: 0;
 }
+.a-maillist__item:hover .a-maillist__date {
+	display: none;
+}
+.a-maillist__item:hover .a-maillist__remove {
+	display: block;
+}
 .a-maillist__header:after {
 	content: "";
 	display: table;
@@ -1177,14 +1183,27 @@ body {
 .a-maillist__subject {
 	overflow: hidden;
 }
-.a-maillist__date {
+.a-maillist__right {
 	float: right;
+	text-align: right;
+}
+.a-maillist__date {
 	max-width: 120px;
 	margin-left: 20px;
 	font-size: 13px;
 	line-height: 22px;
 	color: #666;
-	text-align: right;
+}
+.a-maillist__remove {
+	display: none;
+	padding-top: 2px;
+	font-size: 12px;
+	color: #e26f5d !important;
+	text-decoration: none !important;
+	border-bottom: 1px dashed;
+}
+.a-maillist__remove:hover {
+	border-bottom: none;
 }
 .a-maillist__content:after {
 	content: "";
