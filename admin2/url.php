@@ -26,6 +26,7 @@
 	if (!empty($SELAP['page'])) {
 		$page_template = $_SERVER['DOCUMENT_ROOT'].BASE_URL.$SELAP['page']['template'];
 	}
+	
 	if (!file_exists($page_template)) {
 		header("HTTP/1.0 404 Not Found");
 		$page_template = $_SERVER['DOCUMENT_ROOT'].BASE_URL.TEMPLATE_PATH."/p404.php";

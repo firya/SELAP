@@ -39,6 +39,6 @@
 	$parent_tree = $config_tree;
 	$parent_prefix = "defaults";
 	$save_prefix = "defaults";
-	require_once($_SERVER['DOCUMENT_ROOT'].BASE_URL."/admin/templates/inside/add_field.php");
-	require_once($_SERVER['DOCUMENT_ROOT'].BASE_URL."/admin/templates/inside/edit_fields.php");
+	require_once($_SERVER['DOCUMENT_ROOT'].BASE_URL."/".ADMIN_FOLDER."/templates/inside/add_field.php");
+	require_once($_SERVER['DOCUMENT_ROOT'].BASE_URL."/".ADMIN_FOLDER."/templates/inside/edit_fields.php");
 ?>

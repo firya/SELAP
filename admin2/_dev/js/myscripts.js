@@ -25,9 +25,9 @@ $(function() {
 		forced_root_block : '', 
 		plugins: ["autolink autosave code hr image imagetools link lists media paste table wordcount contextmenu paste responsivefilemanager"], 
 		toolbar: "undo redo | formatselect | bold italic underline | table hr | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link media image responsivefilemanager | code", 
-		external_filemanager_path:"/admin/filemanager/",
+		external_filemanager_path:"/"+admin_path+"/filemanager/",
 		filemanager_title: "Responsive Filemanager", 
-		external_plugins: {"filemanager" : "/admin/filemanager/plugin.min.js"}
+		external_plugins: {"filemanager" : "/"+admin_path+"/filemanager/plugin.min.js"}
 	};
 	tinymce.init(tinymce_options);
 
@@ -540,7 +540,7 @@ $(function() {
 
 		$.ajax({
 			method: "POST",
-			url: "/admin/get_file.php",
+			url: "/"+admin_path+"/get_file.php",
 			data: { file: value }
 		}).done(function(result) {
 			CodeMirrorEditor.doc.setValue(result);
@@ -626,7 +626,7 @@ $(function() {
 
 		$.ajax({
 			type: "POST",
-			url: "/admin/forms.php", 
+			url: "/"+admin_path+"/forms.php", 
 			data: {
 				"check_alias": true, 
 				"alias": $(document.getElementById("addfield[alias]")).val(), 
