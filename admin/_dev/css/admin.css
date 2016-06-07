@@ -146,7 +146,7 @@ body {
 	display: block;
 	width: 80px;
 	height: 80px;
-	background: url("/admin/images/logo.png") no-repeat;
+	background: url("../images/logo.png") no-repeat;
 }
 .a-nav {
 	display: block;
@@ -859,6 +859,18 @@ body {
 		width: auto;
 		float: none;
 		padding: 0;
+	}
+}
+@media all and (max-width: 480px) {
+	.a-header__right {
+		.a-btn {
+			margin-left: 5px;
+		}
+	}
+	.a-btn {
+		padding-left: 5px;
+		padding-right: 5px;
+		font-size: 14px;
 	}
 }
 .icon-photo:before {

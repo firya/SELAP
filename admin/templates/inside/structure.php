@@ -40,6 +40,6 @@
 	$parent_tree = $config_tree["structure"]['pages'];
 	$parent_prefix = "structure|pages";
 	$save_prefix = "structure";
-	require_once($_SERVER['DOCUMENT_ROOT'].BASE_URL."/admin/templates/inside/add_field.php");
-	require_once($_SERVER['DOCUMENT_ROOT'].BASE_URL."/admin/templates/inside/edit_fields.php");
+	require_once($_SERVER['DOCUMENT_ROOT'].BASE_URL."/".ADMIN_FOLDER."/templates/inside/add_field.php");
+	require_once($_SERVER['DOCUMENT_ROOT'].BASE_URL."/".ADMIN_FOLDER."/templates/inside/edit_fields.php");
 ?>

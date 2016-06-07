@@ -77,8 +77,10 @@
 		unset($_POST['save_mail']);
 		$mail_array = array();
 
-		foreach ($_POST['mail'] as $key => $value) {
-			$mail_array[] = $value;
+		if (isset($_POST['mail'])) {
+			foreach ($_POST['mail'] as $key => $value) {
+				$mail_array[] = $value;
+			}
 		}
 
 		$JSON->save_json($_SERVER['DOCUMENT_ROOT'].BASE_URL.MAIL_DATA_PATH, $mail_array);
@@ -139,9 +141,9 @@
 	}
 
 	if (isset($_POST['check_alias'])) {
-		require_once($_SERVER['DOCUMENT_ROOT'].BASE_URL."/admin/config.php");
-		require_once($_SERVER['DOCUMENT_ROOT'].BASE_URL."/admin/core.php");
-		require_once($_SERVER['DOCUMENT_ROOT'].BASE_URL."/admin/json.php");
+		require_once($_SERVER['DOCUMENT_ROOT'].BASE_URL."/".ADMIN_FOLDER."/config.php");
+		require_once($_SERVER['DOCUMENT_ROOT'].BASE_URL."/".ADMIN_FOLDER."/core.php");
+		require_once($_SERVER['DOCUMENT_ROOT'].BASE_URL."/".ADMIN_FOLDER."/json.php");
 		$Core = new Core();
 		$JSON = new JSON();
 

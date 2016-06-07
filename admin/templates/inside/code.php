@@ -12,7 +12,7 @@
 		<div class="a-content a-content-code">			
 			<div class="a-redactor a-redactor-options">
 				<?
-					require_once($_SERVER['DOCUMENT_ROOT'].BASE_URL."/admin/get_file.php");
+					require_once($_SERVER['DOCUMENT_ROOT'].BASE_URL."/".ADMIN_FOLDER."/get_file.php");
 					$all_files = $Core->get_all_files();
 				?>
 				<div class="a-redactor__options">
@@ -26,21 +26,21 @@
 		</div>
 	</div>
 </form>
-<script src='/admin/js/codemirror/codemirror.js'></script>
+<script src='/<?=ADMIN_FOLDER?>/js/codemirror/codemirror.js'></script>
 
-<script src="/admin/js/codemirror/mode/css/css.js"></script>
-<script src="/admin/js/codemirror/mode/javascript/javascript.js"></script>
-<script src="/admin/js/codemirror/mode/php/php.js"></script>
+<script src="/<?=ADMIN_FOLDER?>/js/codemirror/mode/css/css.js"></script>
+<script src="/<?=ADMIN_FOLDER?>/js/codemirror/mode/javascript/javascript.js"></script>
+<script src="/<?=ADMIN_FOLDER?>/js/codemirror/mode/php/php.js"></script>
 
-<script src="/admin/js/codemirror/addon/hint/show-hint.js"></script>
-<script src="/admin/js/codemirror/addon/hint/css-hint.js"></script>
-<script src="/admin/js/codemirror/addon/hint/javascript-hint.js"></script>
-<script src="/admin/js/codemirror/addon/edit/matchbrackets.js"></script>
+<script src="/<?=ADMIN_FOLDER?>/js/codemirror/addon/hint/show-hint.js"></script>
+<script src="/<?=ADMIN_FOLDER?>/js/codemirror/addon/hint/css-hint.js"></script>
+<script src="/<?=ADMIN_FOLDER?>/js/codemirror/addon/hint/javascript-hint.js"></script>
+<script src="/<?=ADMIN_FOLDER?>/js/codemirror/addon/edit/matchbrackets.js"></script>
 
-<script src="/admin/js/codemirror/mode/htmlmixed/htmlmixed.js"></script>
-<script src="/admin/js/codemirror/mode/xml/xml.js"></script>
-<script src="/admin/js/codemirror/mode/javascript/javascript.js"></script>
-<script src="/admin/js/codemirror/mode/clike/clike.js"></script>
+<script src="/<?=ADMIN_FOLDER?>/js/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+<script src="/<?=ADMIN_FOLDER?>/js/codemirror/mode/xml/xml.js"></script>
+<script src="/<?=ADMIN_FOLDER?>/js/codemirror/mode/javascript/javascript.js"></script>
+<script src="/<?=ADMIN_FOLDER?>/js/codemirror/mode/clike/clike.js"></script>
 
 <script>
 	var CodeMirrorEditor = CodeMirror.fromTextArea(document.getElementById("code"), {
