@@ -3,7 +3,7 @@
 	define("PASSWORD", "password1"); // Пароль доступа в админ панель
 
 	define("BASE_URL", ""); // Путь до директории в которую установлена админ-панель
-	define("ADMIN_FOLDER", "admin2"); // Имя папки, в которой установлена админ-панель
+	define("ADMIN_FOLDER", "admin"); // Имя папки, в которой установлена админ-панель
 	define("CONFIG_PATH", "/config.json"); // Путь к файлу, где будет храниться конфиг
 	define("CONFIG_TREE_PATH", "/".ADMIN_FOLDER."/config_tree.json"); // Путь к файлу, где будет храниться вспомогательный конфиг
 	define("MAIL_DATA_PATH", "/".ADMIN_FOLDER."/mail.json"); // Путь к файлу, куда будут сохраняться данные отправленные через функцию mail
