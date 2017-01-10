@@ -1,0 +1,3 @@
+<?
+define('BASE_URL', '/');
+?>

@@ -1,0 +1,230 @@
+:root {
+	--input-height: 40px;
+	--button-height: 40px;
+}
+
+.s-form__bg {
+	background-color: var(--bg-light);
+	min-height: 100%;
+	display: flex;
+	overflow: hidden;
+}
+
+.s-install__form {
+	width: 500px;
+	animation: bounce-top 0.7s forwards;
+	animation-timing-function: cubic-bezier(0.200, 0.465, 0.320, 1.295);
+}
+.s-install__tab {
+	display: none;
+
+	&.s-is--visible {
+		display: block;
+	}
+}
+.s-install__error {
+	color: #B61A24;
+}
+
+.s-login__form {
+	width: 320px;
+	animation: bounce-top 0.7s forwards;
+	animation-timing-function: cubic-bezier(0.200, 0.465, 0.320, 1.295);
+}
+
+.s-input {
+	display: inline-block;
+	max-width: 100%;
+	position: relative;
+	min-width: 240px;
+	padding: 0;
+	margin: 0 0 10px;
+	text-align: left;
+
+	&.s-is--empty {
+		.s-input__label {
+			top: 15px;
+			font-size: 1rem;
+			line-height: var(--input-height);
+		}
+	}
+
+	&.s-is--focused {
+		.s-input__line {
+			&:after {
+				background-color: #3B3E45;
+				animation: fill-horizontal .3s forwards;
+			}
+		}
+
+		.s-input__label {
+			top: 0;
+			font-size: 0.7rem;
+			line-height: 15px;
+		}
+
+		.s-input__select {
+			background-image: url("data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%3F%3E%0A%3Csvg%20width%3D%2218px%22%20height%3D%224px%22%20viewBox%3D%220%200%2018%204%22%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%3E%0A%20%20%20%20%3C%21--%20Generator%3A%20Sketch%2041.2%20%2835397%29%20-%20http%3A%2F%2Fwww.bohemiancoding.com%2Fsketch%20--%3E%0A%20%20%20%20%3Ctitle%3EArtboard%3C%2Ftitle%3E%0A%20%20%20%20%3Cdesc%3ECreated%20with%20Sketch.%3C%2Fdesc%3E%0A%20%20%20%20%3Cdefs%3E%3C%2Fdefs%3E%0A%20%20%20%20%3Cg%20id%3D%22Page-1%22%20stroke%3D%22none%22%20stroke-width%3D%221%22%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%0A%20%20%20%20%20%20%20%20%3Cpolygon%20id%3D%22Triangle%22%20fill%3D%22%233B3E45%22%20transform%3D%22translate%284.000000%2C%202.000000%29%20scale%281%2C%20-1%29%20translate%28-4.000000%2C%20-2.000000%29%20%22%20points%3D%224%200%208%204%200%204%22%3E%3C%2Fpolygon%3E%0A%20%20%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E");
+
+		}
+	}
+
+	&.s-is--error {
+		.s-input__line {
+			&:after {
+				background-color: #B61A24;
+				animation: fill-horizontal .3s forwards;
+			}
+		}
+	}
+
+	&.s-input--checkbox {
+		overflow: hidden;
+		
+		.s-input__wrapper {
+			padding-top: 0;
+		}
+		.s-input__label {
+			top: auto;
+			left: auto;
+			font-size: 0.8rem;
+			line-height: 1;
+			position: relative;
+			cursor: pointer;
+		}
+
+		.s-input__checkbox {
+			position: absolute;
+			width: 1px;
+			height: 1px;
+			top: 0;
+			left: -9999px;
+			opacity: 0;
+
+			&:checked + .s-input__fakecheckbox {
+				.s-input__check {
+					opacity: 1;
+				}
+			}
+		}
+
+		.s-input__fakecheckbox {
+			position: relative;
+			display: inline-block;
+			margin-right: 8px;
+			width: 16px;
+			height: 16px;
+			background-color: #fff;
+			border: 1px solid #ccc;
+			border-radius: 1px;
+			vertical-align: middle;
+			cursor: pointer;
+		}
+
+		.s-input__check {
+			position: absolute;
+			vertical-align: middle;
+			left: 50%;
+			top: 50%;
+			margin-left: 2px;
+			margin-top: -1px;
+			transform: translate(-50%, -50%);
+			transition: opacity .1s;
+			opacity: 0;
+		}
+	}
+}
+.s-input__wrapper {
+	padding: 15px 0 0;
+	margin: 0 0 3px;
+	position: relative;
+}
+.s-input__label {
+	position: absolute;
+	left: 0;
+	top: 0;
+	font-size: 0.7rem;
+	line-height: 15px;
+	color: #8A92A7;
+	z-index: 2;
+	transition: all .3s;
+}
+.s-input__input, 
+.s-input__select {
+	appearance: none;
+	border: none;
+	outline: none;
+	width: 100%;
+	background-color: transparent;
+	line-height: 1.2;
+	height: var(--input-height);
+	padding: 10px 0;
+	font-size: 1rem;
+	margin: 0;
+	z-index: 1;
+
+	&:-webkit-autofill {
+		-webkit-box-shadow: 0 0 0px 1000px white inset;
+	}
+}
+.s-input__select {
+	background-image: url("data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%3F%3E%0A%3Csvg%20width%3D%2218px%22%20height%3D%224px%22%20viewBox%3D%220%200%2018%204%22%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%3E%0A%20%20%20%20%3C%21--%20Generator%3A%20Sketch%2041.2%20%2835397%29%20-%20http%3A%2F%2Fwww.bohemiancoding.com%2Fsketch%20--%3E%0A%20%20%20%20%3Ctitle%3EArtboard%3C%2Ftitle%3E%0A%20%20%20%20%3Cdesc%3ECreated%20with%20Sketch.%3C%2Fdesc%3E%0A%20%20%20%20%3Cdefs%3E%3C%2Fdefs%3E%0A%20%20%20%20%3Cg%20id%3D%22Page-1%22%20stroke%3D%22none%22%20stroke-width%3D%221%22%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%0A%20%20%20%20%20%20%20%20%3Cpolygon%20id%3D%22Triangle%22%20fill%3D%22%23D2D2D2%22%20transform%3D%22translate%284.000000%2C%202.000000%29%20scale%281%2C%20-1%29%20translate%28-4.000000%2C%20-2.000000%29%20%22%20points%3D%224%200%208%204%200%204%22%3E%3C%2Fpolygon%3E%0A%20%20%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E");
+	background-repeat: no-repeat;
+	background-position: right center;
+}
+.s-input__icon {
+	position: absolute;
+	right: 5px;
+	top: 12px;
+	z-index: 10;
+	margin-top: 15px;
+	cursor: pointer;
+	opacity: 0.6;
+	transition: opacity. 3s;
+
+	&:hover {
+		opacity: 1;
+	}
+}
+.s-input__line {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 1px;
+	background-color: #ccc;
+
+	&:after {
+		content: "";
+		display: block;
+		left: 0;
+		width: 100%;
+		top: 0;
+		height: 1px;
+		transform-origin: 0 0;
+	}
+}
+.s-input__error {
+	font-size: 0.8rem;
+	color: #B61A24;
+	width: 100%;
+	height: 16px;
+}
+
+a.s-button, 
+.s-button {
+	display: inline-block;
+	appearance: none;
+	color: #fff;
+	height: var(--button-height);
+	padding: 10px 20px;
+	min-width: 100px;
+	background-color: #488dd2;
+	text-align: center;
+	text-decoration: none;
+	border-radius: 3px;
+
+	&.s-button--green {
+		background-color: #1DD270;
+	}
+}

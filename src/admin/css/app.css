@@ -1,0 +1,100 @@
+@charset "UTF-8";
+
+@import url('https://fonts.googleapis.com/css?family=Rubik:300,400,400i,500,700&subset=cyrillic');
+
+@import 'common.css';
+@import 'animate.css';
+@import 'form.css';
+@import 'steps.css';
+@import 'loader.css';
+
+:root {
+	--bg-light: #EFF4F6;
+	--bg-dark: #33383C;
+	--text-light: #fff;
+	--text-dark: #3B3E45;
+	--text-link: #158EEF;
+	--bg-form: #fff;
+}
+body {
+	background-color: var(--bg-light);
+	font-family: 'Rubik', sans-serif;
+	font-weight: 300;
+	min-width: 320px;
+	color: var(--text-dark);
+	font-size: 16px;
+}
+.s-root {
+	width: 100%;
+	height: 100%;
+}
+.s-logo {
+	display: block;
+	text-align: center;
+	margin-bottom: 20px;
+}
+.s-logo__glyph {
+	display: inline-block;
+	color: var(--text-link);
+}
+.s-logo__desc {
+	display: inline-block;
+	vertical-align: -38px;
+	margin-left: 10px;
+}
+.s-form {
+	max-width: 99%;
+	border-radius: 5px;
+	background-color: var(--bg-form);
+	align-self: center;
+	margin: 0 auto;
+	overflow: hidden;
+	padding: 30px;
+	box-shadow: 0 1px 1px 0 rgba(0,0,0,0.10);
+}
+.s-form__line {
+	background-color: var(--bg-light);
+	height: 1px;
+	width: 2000px;
+	margin-bottom: 30px;
+	transform: translateX(-50%);
+}
+.s-form__block {
+	display: block;
+	text-align: center;
+}
+.s-h-center {
+	margin: 0 auto;
+	text-align: center;
+	align-self: center;
+}
+.s-layout {
+	height: 100%;
+	width: 100%;
+}
+.s-nav {
+	height: 100%;
+	display: block;
+	float: left;
+	background-color: var(--bg-dark);
+	width: 64px;
+}
+.s-nav__link {
+	
+}
+.s-container {
+	position: relative;
+	overflow: hidden;
+	height: 100%;
+	padding-top: 64px;
+}
+.s-toolbar {
+	width: 100%;
+	top: 0;
+	position: absolute;
+	height: 64px;
+}
+.s-content {
+	height: 100%;
+	overflow: auto;
+}

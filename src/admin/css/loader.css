@@ -1,0 +1,33 @@
+.s-loader {
+	width: 100%;
+	display: flex;
+	height: 100%;
+}
+.s-loader__center {
+	align-self: center;
+	margin: 0 auto;
+	text-align: center;
+	color: #fff;
+}
+.s-loader__load {
+	position: relative;
+	width: 200px;
+	height: 5px;
+	border-radius: 3px;
+	display: block;
+	overflow: hidden;
+	background-color: #DFE6E9;
+	margin-bottom: 10px;
+
+	&:after {
+		content: "";
+		display: block;
+		position: absolute;
+		top: 1px;
+		bottom: 1px;
+		border-radius: 3px;
+		background-color: #B2BABC;
+		animation: loading 2s infinite;
+		animation-timing-function: cubic-bezier(0.49, 0.2, 0.57, 1.05);
+	}
+}
