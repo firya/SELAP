@@ -27,6 +27,28 @@
 	</head>
 	<body>
 		
+		<?
+		$sidebar = false;
+		$side_memu = array();
+			
+		foreach ($SELAP['menu'] as $menu_item) {
+			if ($menu_item['parent'] == $SELAP['page']['url'] || ($menu_item['parent'] == $SELAP['page']['parent'] && $menu_item['parent'] != ""))
+			{
+				$side_menu[] = $menu_item;
+				$sidebar = true;
+			}
+		}
+		if ($sidebar) {
+	?>
+	
+		<? foreach ($side_menu as $menu_item) {
+			
+			
+		
+		} ?>
+	
+		<? } ?>
+		
 		<script src='/js/scripts.min.js'></script>
 	</body>
 </html>
